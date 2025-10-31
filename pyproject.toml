@@ -1,0 +1,60 @@
+[build-system]
+requires = ["hatchling>=1.25.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fillenv"
+version = "0.1.0"
+description = "Fill .env templates by prompting for values and outputting KEY=value lines."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+  { name = "Elmer Nocon", email = "elmernocon@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = []
+keywords = ["dotenv", "env", "cli", "template", "configuration"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Operating System :: OS Independent",
+  "Topic :: Software Development :: Build Tools",
+  "Topic :: Utilities",
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest>=8.0",
+]
+dev = [
+  "ruff>=0.6.0",
+  "twine>=5.0.0",
+]
+
+[project.scripts]
+fillenv = "fillenv.cli:run"
+
+[project.urls]
+Homepage = "https://github.com/elmernocon/fillenv"
+Repository = "https://github.com/elmernocon/fillenv"
+Issues = "https://github.com/elmernocon/fillenv/issues"
+Changelog = "https://github.com/elmernocon/fillenv/releases"
+
+[tool.ruff]
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["fillenv"]
+
+[tool.ruff.format]
+quote-style = "preserve"
+indent-style = "space"
+line-ending = "auto"
