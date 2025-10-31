@@ -1,7 +1,7 @@
 # Copyright (c) 2025 Elmer Nocon
 # SPDX-License-Identifier: MIT
 
-from typing import Iterable, List, Tuple
+from typing import Iterable, List, Optional, Tuple
 
 
 def is_comment_or_blank(line: str) -> bool:
@@ -51,7 +51,7 @@ def strip_inline_comment_outside_quotes(s: str) -> str:
     return s.rstrip()
 
 
-def split_key_value(s: str) -> tuple[str | None, str | None]:
+def split_key_value(s: str) -> Tuple[Optional[str], Optional[str]]:
     """Split a line into ``(key, value)`` on the first unquoted ``=`` or ``:``.
 
     Returns ``(None, None)`` when no separator is found.

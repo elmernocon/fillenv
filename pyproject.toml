@@ -4,14 +4,14 @@ build-backend = "hatchling.build"
 
 [project]
 name = "fillenv"
-version = "0.1.0"
+version = "0.1.1"
 description = "Fill .env templates by prompting for values and outputting KEY=value lines."
 readme = "README.md"
 license = { text = "MIT" }
 authors = [
   { name = "Elmer Nocon", email = "elmernocon@gmail.com" }
 ]
-requires-python = ">=3.11"
+requires-python = ">=3.9"
 dependencies = []
 keywords = ["dotenv", "env", "cli", "template", "configuration"]
 classifiers = [
@@ -20,6 +20,8 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Operating System :: OS Independent",
@@ -46,7 +48,7 @@ Issues = "https://github.com/elmernocon/fillenv/issues"
 Changelog = "https://github.com/elmernocon/fillenv/releases"
 
 [tool.ruff]
-target-version = "py311"
+target-version = "py39"
 
 [tool.ruff.lint]
 select = ["E", "F", "I"]

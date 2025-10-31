@@ -4,14 +4,14 @@
 import argparse
 import os
 import sys
-from typing import List
+from typing import List, Optional
 
 from .parser import parse_template_lines
 from .prompt import prompt_for_values
 from .serialize import serialize_value
 
 
-def run(argv: list[str] | None = None) -> int:
+def run(argv: Optional[List[str]] = None) -> int:
     parser = argparse.ArgumentParser(
         description=(
             "Fill values for variables from a .env.template "
