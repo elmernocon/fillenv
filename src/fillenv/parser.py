@@ -18,15 +18,6 @@ def is_comment_or_blank(line: str) -> bool:
     return False
 
 
-def strip_leading_export(s: str) -> str:
-    """Remove an optional leading ``export `` token (as in shell env files)."""
-
-    if s.lstrip().startswith("export "):
-        leading_ws_len = len(s) - len(s.lstrip())
-        return s[:leading_ws_len] + s.lstrip()[len("export ") :]
-    return s
-
-
 def strip_inline_comment_outside_quotes(s: str) -> str:
     """Strip trailing ``#`` or ``;`` comments when they occur outside quotes."""
 
@@ -52,7 +43,7 @@ def strip_inline_comment_outside_quotes(s: str) -> str:
 
 
 def split_key_value(s: str) -> Tuple[Optional[str], Optional[str]]:
-    """Split a line into ``(key, value)`` on the first unquoted ``=`` or ``:``.
+    """Split a line into ``(key, value)`` on the first unquoted ``=``.
 
     Returns ``(None, None)`` when no separator is found.
     """
@@ -73,7 +64,7 @@ def split_key_value(s: str) -> Tuple[Optional[str], Optional[str]]:
         if ch == '"' and not in_single:
             in_double = not in_double
             continue
-        if not in_single and not in_double and (ch == "=" or ch == ":"):
+        if not in_single and not in_double and ch == "=":
             key = s[:idx].strip()
             val = s[idx + 1 :].strip()
             return key, val
@@ -97,15 +88,14 @@ def unquote(value: str) -> str:
 def parse_template_lines(lines: Iterable[str]) -> List[Tuple[str, str]]:
     """Parse template lines into a list of ``(key, default)`` pairs.
 
-    Skips comments and blank lines, supports optional ``export `` prefix, and
-    recognizes inline comments outside of quotes.
+    Skips comments and blank lines and recognizes inline comments outside of quotes.
     """
 
     entries: List[Tuple[str, str]] = []
     for ln, raw in enumerate(lines, start=1):
         if is_comment_or_blank(raw):
             continue
-        line = strip_leading_export(raw.rstrip("\n"))
+        line = raw.rstrip("\n")
         line = strip_inline_comment_outside_quotes(line)
         if not line.strip():
             continue
