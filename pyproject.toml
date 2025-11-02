@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "fillenv"
-version = "0.1.1"
+version = "1.0.0"
 description = "Fill .env templates by prompting for values and outputting KEY=value lines."
 readme = "README.md"
 license = { text = "MIT" }
