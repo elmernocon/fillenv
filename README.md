@@ -46,8 +46,14 @@ uv run python -m fillenv .env.template
 # Or rely on default template path (".env.template" in CWD)
 uv run python -m fillenv
 
-# Uses same write behavior (.env, or .env1, .env2, ...)
-uv run python -m fillenv
+# Specify output file (default: .env)
+fillenv --output .env.production
+
+# Overwrite existing output file
+fillenv --overwrite
+
+# Combine options
+fillenv .env.template --output .env.local --overwrite
 ```
 
 You can also import and call `fillenv.cli.run(argv)` from Python code.

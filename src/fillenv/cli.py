@@ -15,7 +15,8 @@ def run(argv: Optional[List[str]] = None) -> int:
     parser = argparse.ArgumentParser(
         description=(
             "Fill values for variables from a .env.template "
-            "and write KEY=value lines to .env (or .env1, .env2, ...)."
+            "and write KEY=value lines to output file (default: .env, "
+            "or .env1, .env2, ... if file exists and --overwrite is not set)."
         )
     )
     parser.add_argument(
@@ -23,6 +24,16 @@ def run(argv: Optional[List[str]] = None) -> int:
         nargs="?",
         default=".env.template",
         help="Path to the env template file (default: .env.template)",
+    )
+    parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        help="Overwrite existing output file if it exists",
+    )
+    parser.add_argument(
+        "--output",
+        default=".env",
+        help="Path to the output env file (default: .env)",
     )
     args = parser.parse_args(argv)
 
@@ -45,13 +56,16 @@ def run(argv: Optional[List[str]] = None) -> int:
 
     filled = prompt_for_values(entries)
 
-    # Choose output filename: .env, or .env1, .env2, ... if existing
-    counter = 0
-    base_name = ".env"
-    out_path = base_name
-    while os.path.exists(out_path):
-        counter += 1
-        out_path = f"{base_name}{counter}"
+    # Choose output filename: use --output value, or append 1, 2, ... if existing
+    if args.overwrite:
+        out_path = args.output
+    else:
+        counter = 0
+        base_name = args.output
+        out_path = base_name
+        while os.path.exists(out_path):
+            counter += 1
+            out_path = f"{base_name}{counter}"
 
     try:
         with open(out_path, "w", encoding="utf-8") as outf:
